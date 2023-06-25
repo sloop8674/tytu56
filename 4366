@@ -1,33 +1,16 @@
-   "name": "Debug RM Training",
-      "type": "python",
-      "request": "launch",
-      "cwd": "${workspaceFolder}/model/model_training",
-      "program": "trainer_rm.py",
-      "args": [
-        "--configs",
-        "defaults_rm",
-        "oasst_export_eu",
-        "pythia-1B",
-        "--cache_dir",
-        "/home/ubuntu/data_cache",
-        "--use_flash_attention",
-        "true"
-      ],
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "env": {
-        "TOKENIZERS_PARALLELISM": "false",
-        "CUDA_VISIBLE_DEVICES": "1"
-      }
-    },
-    {
-      "name": "Debug Patching",
-      "type": "python",
-      "request": "launch",
-      "cwd": "${workspaceFolder}/model/model_training",
-      "program": "models/test_patched_gpt_neox.py",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "env": {
-        "CUDA_VISIBLE_DEVICES": "0"
-      }
+
+def main(args):
+    # load model
+    model = YOLO(args.model_path)
+    args.point_prompt = ast.literal_eval(args.point_prompt)
+    args.box_prompt = ast.literal_eval(args.box_prompt)
+    args.point_label = ast.literal_eval(args.point_label)
+    results = model(
+        args.img_path,
+        imgsz=args.imgsz,
+        device=args.device,
+        retina_masks=args.retina,
+        iou=args.iou,
+        conf=args.conf,
+        max_det=100,
+    )
