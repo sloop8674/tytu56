@@ -10,7 +10,6 @@ def main(args):
         imgsz=args.imgsz,
         device=args.device,
         retina_masks=args.retina,
-        iou=args.iou,
         conf=args.conf,
         max_det=100,
     )
